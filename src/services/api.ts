@@ -1,12 +1,35 @@
 import axios from 'axios';
 
+// Use environment variable for API URL in production
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+// Add request interceptor for logging
+api.interceptors.request.use((config) => {
+  console.log(`API Request: ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`);
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+// Add response interceptor for error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Handle unauthorized - could redirect to login
+      console.warn('Unauthorized request - user may need to login');
+    }
+    return Promise.reject(error);
+  }
+);
 
 // Authentication endpoints
 export const checkAuthStatus = () =>

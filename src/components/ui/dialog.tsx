@@ -1,87 +1,101 @@
 import * as React from "react"
-import { X } from "lucide-react"
 import { cn } from "@/utils/cn"
 
-interface DialogProps {
-  open?: boolean
-  onOpenChange?: (open: boolean) => void
-  children: React.ReactNode
-}
-
-interface DialogContentProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode
-  onOpenChange?: (open: boolean) => void
-}
-
-interface DialogHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode
-}
-
-interface DialogTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  children: React.ReactNode
-}
-
-const Dialog: React.FC<DialogProps> = ({ open, onOpenChange, children }) => {
+const Dialog = React.forwardRef<
+  React.ElementRef<"div">,
+  React.ComponentPropsWithoutRef<"div"> & {
+    open?: boolean
+    onOpenChange?: (open: boolean) => void
+  }
+>(({ className, open, onOpenChange, children, ...props }, ref) => {
   if (!open) return null
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-lg max-w-md w-full">
-        {React.Children.map(children, (child) => {
-          if (React.isValidElement(child) && child.type === DialogContent) {
-            return React.cloneElement(child, { onOpenChange } as any)
-          }
-          return child
-        })}
+      <div
+        ref={ref}
+        className={cn(
+          "bg-white rounded-lg shadow-lg max-w-md w-full max-h-[85vh] overflow-y-auto",
+          className
+        )}
+        {...props}
+      >
+        {children}
       </div>
     </div>
   )
-}
+})
+Dialog.displayName = "Dialog"
 
-const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
-  ({ className, children, onOpenChange, ...props }, ref) => (
+const DialogTrigger = React.forwardRef<
+  React.ElementRef<"div">,
+  React.ComponentPropsWithoutRef<"div"> & {
+    asChild?: boolean
+  }
+>(({ className, children, asChild = false, ...props }, ref) => {
+  return (
     <div
       ref={ref}
-      className={cn("relative p-6", className)}
+      className={cn("cursor-pointer", className)}
       {...props}
     >
-      <button
-        onClick={() => onOpenChange?.(false)}
-        className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-      >
-        <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </button>
       {children}
     </div>
   )
-)
+})
+DialogTrigger.displayName = "DialogTrigger"
+
+const DialogContent = React.forwardRef<
+  React.ElementRef<"div">,
+  React.ComponentPropsWithoutRef<"div">
+>(({ className, children, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("p-6", className)}
+    {...props}
+  >
+    {children}
+  </div>
+))
 DialogContent.displayName = "DialogContent"
 
-const DialogHeader = React.forwardRef<HTMLDivElement, DialogHeaderProps>(
-  ({ className, children, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)}
-      {...props}
-    >
-      {children}
-    </div>
-  )
+const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn("flex flex-col space-y-1.5 text-center sm:text-left mb-4", className)}
+    {...props}
+  />
 )
 DialogHeader.displayName = "DialogHeader"
 
-const DialogTitle = React.forwardRef<HTMLHeadingElement, DialogTitleProps>(
-  ({ className, children, ...props }, ref) => (
-    <h2
-      ref={ref}
-      className={cn("text-lg font-semibold leading-none tracking-tight", className)}
-      {...props}
-    >
-      {children}
-    </h2>
-  )
-)
+const DialogTitle = React.forwardRef<
+  React.ElementRef<"h2">,
+  React.ComponentPropsWithoutRef<"h2">
+>(({ className, ...props }, ref) => (
+  <h2
+    ref={ref}
+    className={cn("text-lg font-semibold leading-none tracking-tight", className)}
+    {...props}
+  />
+))
 DialogTitle.displayName = "DialogTitle"
 
-export { Dialog, DialogContent, DialogHeader, DialogTitle }
+const DialogDescription = React.forwardRef<
+  React.ElementRef<"p">,
+  React.ComponentPropsWithoutRef<"p">
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+))
+DialogDescription.displayName = "DialogDescription"
+
+export {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+}
