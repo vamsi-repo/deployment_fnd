@@ -1,9 +1,5 @@
-[build]
-  builder = "NIXPACKS"
-  buildCommand = "npm install --legacy-peer-deps && npm run build"
-
 [deploy]
-  startCommand = "npm start"
+  startCommand = "npx --yes serve@14.2.0 dist -p $PORT -s"
   
 [env]
   NODE_ENV = "production"

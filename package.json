@@ -1,24 +1,7 @@
 {
-  "name": "keansa-frontend",
+  "name": "keansa-frontend-static",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
-    "build": "vite build",
-    "start": "npx serve dist -p $PORT -s --single"
-  },
-  "dependencies": {
-    "serve": "^14.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.1",
-    "axios": "^1.6.0",
-    "lucide-react": "^0.263.1"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^3.1.0",
-    "vite": "^4.1.0",
-    "typescript": "^4.9.3",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11"
+    "start": "npx --yes serve@14.2.0 dist -p $PORT -s"
   }
 }
