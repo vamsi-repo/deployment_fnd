@@ -1,5 +1,5 @@
 [deploy]
-  startCommand = "npx --yes serve@14.2.0 dist -p $PORT -s"
+  startCommand = "npx --yes serve@14.2.0 . -p $PORT -s"
   
 [env]
   NODE_ENV = "production"
