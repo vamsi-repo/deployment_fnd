@@ -1,8 +1,8 @@
 {
-  "name": "keansa-frontend-static",
+  "name": "keansa-frontend",
   "version": "1.0.0",
   "scripts": {
-    "start": "npx --yes serve@14.2.0 . -p $PORT -s"
+    "start": "npx --yes serve@14.2.0 dist -p $PORT -s --spa"
   },
   "dependencies": {
     "serve": "^14.2.0"
