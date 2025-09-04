@@ -1,0 +1,16 @@
+# Files to ignore during Railway deployment
+node_modules
+.git
+.env.local
+.env.development
+*.log
+package-*.json
+!package.json
+tsconfig-*.json
+!tsconfig.json
+vite-*.config.ts
+!vite.config.ts
+IMAGE_*.md
+RAILWAY_DEBUG.md
+deploy-frontend.sh
+railway-debug.toml
