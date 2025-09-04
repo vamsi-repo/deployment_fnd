@@ -1,0 +1,9 @@
+{
+  "name": "keansa-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo 'Build complete' && exit 0",
+    "start": "python -m http.server $PORT"
+  },
+  "dependencies": {}
+}

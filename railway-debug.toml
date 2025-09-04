@@ -1,0 +1,13 @@
+# Railway.app configuration file for frontend - Debug mode
+[build]
+  builder = "NIXPACKS"
+  buildCommand = "npm install --verbose && npm run build --verbose"
+
+[deploy]
+  startCommand = "npm start"
+  healthcheckPath = "/"
+  healthcheckTimeout = 60
+
+[env]
+  NODE_ENV = "production"
+  VERBOSE = "true"
