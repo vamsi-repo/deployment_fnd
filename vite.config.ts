@@ -6,6 +6,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
+    minify: true,
     target: 'es2015',
     rollupOptions: {
       output: {
@@ -14,11 +15,11 @@ export default defineConfig({
     }
   },
   server: {
-    port: 3000,
-    host: '0.0.0.0'
+    host: '0.0.0.0',
+    port: 3000
   },
   preview: {
-    port: parseInt(process.env.PORT) || 3000,
-    host: '0.0.0.0'
+    host: '0.0.0.0',
+    port: parseInt(process.env.PORT) || 3000
   }
 })
