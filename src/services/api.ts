@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// FORCE the backend URL - don't rely on fallback to '/api'
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://web-production-895d0.up.railway.app/api';
+// HARDCODED BACKEND URL - TEMPORARY FIX
+const API_BASE_URL = 'https://web-production-895d0.up.railway.app/api';
 
 // Debug logging to verify the URL
 console.log('🚀 Frontend Environment Variables:');
