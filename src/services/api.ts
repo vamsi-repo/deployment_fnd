@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// HARDCODED BACKEND URL - TEMPORARY FIX
+// HARDCODED BACKEND URL - TEMPORARY FIX - FORCE DEPLOY
 const API_BASE_URL = 'https://web-production-895d0.up.railway.app/api';
 
 // Debug logging to verify the URL
