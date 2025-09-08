@@ -1,7 +1,14 @@
 import axios from 'axios';
 
-// Use environment variable for API URL in production
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+// FORCE the backend URL - don't rely on fallback to '/api'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://web-production-895d0.up.railway.app/api';
+
+// Debug logging to verify the URL
+console.log('🚀 Frontend Environment Variables:');
+console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
+console.log('NODE_ENV:', import.meta.env.NODE_ENV);
+console.log('MODE:', import.meta.env.MODE);
+console.log('🎯 Final API_BASE_URL being used:', API_BASE_URL);
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -13,7 +20,17 @@ const api = axios.create({
 
 // Add request interceptor for logging
 api.interceptors.request.use((config) => {
-  console.log(`API Request: ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`);
+  const fullUrl = `${config.baseURL}${config.url}`;
+  console.log(`🌐 Making API Request: ${config.method?.toUpperCase()} ${fullUrl}`);
+  
+  // Verify the URL doesn't contain the frontend domain
+  if (fullUrl.includes('deploymentfnd-production.up.railway.app')) {
+    console.error('❌ ERROR: API request going to frontend instead of backend!');
+    console.error('❌ URL:', fullUrl);
+  } else {
+    console.log('✅ Correct: API request going to backend');
+  }
+  
   return config;
 }, (error) => {
   return Promise.reject(error);
@@ -21,10 +38,13 @@ api.interceptors.request.use((config) => {
 
 // Add response interceptor for error handling
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log('✅ API Response:', response.status, response.config.url);
+    return response;
+  },
   (error) => {
+    console.error('❌ API Error:', error.response?.status, error.response?.data, error.config?.url);
     if (error.response?.status === 401) {
-      // Handle unauthorized - could redirect to login
       console.warn('Unauthorized request - user may need to login');
     }
     return Promise.reject(error);
