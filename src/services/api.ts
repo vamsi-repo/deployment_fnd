@@ -1,22 +1,7 @@
 import axios from 'axios';
 
-// Use environment variable - Railway has VITE_API_URL set correctly
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://web-production-895d0.up.railway.app/api';
-
-// VERY OBVIOUS DEBUG LOGS
-console.log('='.repeat(50));
-console.log('DEPLOYMENT TEST - VERSION 3');
-console.log('VITE_API_URL from env:', import.meta.env.VITE_API_URL);
-console.log('Final API_BASE_URL:', API_BASE_URL);
-console.log('='.repeat(50));
-
-// Test if environment variable is working
-if (API_BASE_URL.includes('deploymentfnd-production')) {
-  console.error('ERROR: Still using frontend URL instead of backend!');
-  console.error('This means environment variable is not working');
-} else {
-  console.log('SUCCESS: Using backend URL correctly');
-}
+// SIMPLE FIX: Use Railway environment variable directly
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
