@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build --mode production",
-    "start": "npx serve dist -l $PORT -s"
+    "start": "npx serve dist -l $PORT -s --single"
   },
   "dependencies": {
     "serve": "^14.2.0",
