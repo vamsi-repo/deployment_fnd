@@ -336,17 +336,17 @@ const AdminDashboard: React.FC = () => {
                         </td>
                         <td className="p-4">
                           <div className="flex items-center space-x-2">
-                            <SimpleSelect
+                            <select
                               value={selectedRoles[userData.id] || userData.role}
                               onChange={(e) => setSelectedRoles(prev => ({...prev, [userData.id]: e.target.value}))}
-                              className="w-[130px]"
+                              className="w-[130px] px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             >
                               {roles.map((role) => (
                                 <option key={role.name} value={role.name}>
                                   {role.name}
                                 </option>
                               ))}
-                            </SimpleSelect>
+                            </select>
                             {selectedRoles[userData.id] && selectedRoles[userData.id] !== userData.role && (
                               <Button
                                 size="sm"
