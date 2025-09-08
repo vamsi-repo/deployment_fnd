@@ -1,14 +1,16 @@
 import axios from 'axios';
 
-// HARDCODED BACKEND URL - TEMPORARY FIX - FORCE DEPLOY
+// HARDCODED BACKEND URL - TEMPORARY FIX - FORCE DEPLOY - VERSION 2
 const API_BASE_URL = 'https://web-production-895d0.up.railway.app/api';
 
 // Debug logging to verify the URL
+console.log('🚀🚀🚀 FRONTEND DEPLOYED VERSION 2 🚀🚀🚀');
 console.log('🚀 Frontend Environment Variables:');
 console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
 console.log('NODE_ENV:', import.meta.env.NODE_ENV);
 console.log('MODE:', import.meta.env.MODE);
 console.log('🎯 Final API_BASE_URL being used:', API_BASE_URL);
+console.log('🚀🚀🚀 VERSION 2 LOADED SUCCESSFULLY 🚀🚀🚀');
 
 const api = axios.create({
   baseURL: API_BASE_URL,
